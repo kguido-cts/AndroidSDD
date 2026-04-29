@@ -33,6 +33,7 @@ data class ClubSummary(
     val name: String,
     val area: String,
     val shortDescription: String,
+    val amenities: List<String> = emptyList(),
 )
 
 /** Membership types section. */

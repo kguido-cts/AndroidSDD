@@ -9,25 +9,28 @@
   "findAClub": {
     "title": "Find a club",
     "description": "Discover a PeakFit near you.",
-    "ctaLabel": "Find a club",
+    "ctaLabel": "View all clubs",
     "clubs": [
       {
         "id": "club_downtown",
         "name": "Downtown",
         "area": "Central",
-        "shortDescription": "Cardio, weights, and classes"
+        "shortDescription": "Cardio, weights, and classes",
+        "amenities": ["Gym", "Pool", "Classes", "Spa"]
       },
       {
         "id": "club_westside",
         "name": "Westside",
         "area": "West",
-        "shortDescription": "Olympic pool, spa, and group fitness"
+        "shortDescription": "Olympic pool, spa, and group fitness",
+        "amenities": ["Pool", "Spa", "Classes", "Sauna"]
       },
       {
         "id": "club_northpark",
         "name": "North Park",
         "area": "North",
-        "shortDescription": "Outdoor track and CrossFit area"
+        "shortDescription": "Outdoor track and CrossFit area",
+        "amenities": ["Gym", "Track", "CrossFit", "Classes"]
       }
     ]
   },

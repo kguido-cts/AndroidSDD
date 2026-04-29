@@ -32,6 +32,7 @@ data class ClubSummaryDto(
     val name: String,
     val area: String,
     val shortDescription: String,
+    val amenities: List<String> = emptyList(),
 )
 
 @Serializable

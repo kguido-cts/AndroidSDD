@@ -45,6 +45,7 @@ object HomeContentMapper {
         name = name,
         area = area,
         shortDescription = shortDescription,
+        amenities = amenities,
     )
 
     private fun MembershipTypesSectionDto.toDomain() = MembershipTypesSection(
