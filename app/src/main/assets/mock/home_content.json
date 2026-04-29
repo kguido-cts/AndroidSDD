@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "headline": "Train Harder.",
+    "subheadline": "Live Better.",
+    "body": "Join PeakFit — over 50 premium clubs nationwide designed to push your limits and reward your effort.",
+    "primaryCtaLabel": "Find a Club",
+    "secondaryCtaLabel": "View Memberships"
+  },
+  "findAClub": {
+    "title": "Find a club",
+    "description": "Discover a PeakFit near you.",
+    "ctaLabel": "View all clubs",
+    "clubs": [
+      {
+        "id": "club_downtown",
+        "name": "Downtown",
+        "area": "Central",
+        "shortDescription": "Cardio, weights, and classes",
+        "amenities": ["Gym", "Pool", "Classes", "Spa"]
+      },
+      {
+        "id": "club_westside",
+        "name": "Westside",
+        "area": "West",
+        "shortDescription": "Olympic pool, spa, and group fitness",
+        "amenities": ["Pool", "Spa", "Classes", "Sauna"]
+      },
+      {
+        "id": "club_northpark",
+        "name": "North Park",
+        "area": "North",
+        "shortDescription": "Outdoor track and CrossFit area",
+        "amenities": ["Gym", "Track", "CrossFit", "Classes"]
+      }
+    ]
+  },
+  "membershipTypes": {
+    "title": "Membership types",
+    "description": "Choose a plan that fits your goals.",
+    "plans": [
+      {
+        "id": "classic",
+        "name": "Classic",
+        "priceFrom": "$29/mo",
+        "tagline": "Best for everyday gym-goers",
+        "bullets": ["Full Gym Access", "Locker Rooms & Showers", "Fitness App"]
+      },
+      {
+        "id": "black_card",
+        "name": "Black Card",
+        "priceFrom": "$59/mo",
+        "tagline": "Best for committed athletes & wellness enthusiasts",
+        "bullets": ["All-Club Access", "24/7 Unlimited Access", "Spa & Massage Credits"]
+      }
+    ]
+  },
+  "awards": {
+    "title": "Awards & Recognition",
+    "items": [
+      {
+        "id": "award_1",
+        "title": "Best Gym Chain of the Year",
+        "stat": "2025 National Fitness Association",
+        "description": "Recognised for outstanding facility quality, member satisfaction and community engagement across all locations."
+      },
+      {
+        "id": "award_2",
+        "title": "Top Workplace Wellness Partner",
+        "stat": "2024 Corporate Health Alliance",
+        "description": "Awarded for our innovative corporate wellness programmes that helped over 50,000 employees improve their health."
+      },
+      {
+        "id": "award_3",
+        "title": "Most Inclusive Fitness Brand",
+        "stat": "2024 Health Equity Institute",
+        "description": "Honoured for creating welcoming, judgement-free environments where members of all fitness levels feel at home."
+      }
+    ]
+  }
+}
+

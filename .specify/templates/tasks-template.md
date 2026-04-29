@@ -8,7 +8,9 @@ description: "Task list template for feature implementation"
 **Input**: Design documents from `/specs/[###-feature-name]/`
 **Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/
 
-**Tests**: The examples below include test tasks. Tests are OPTIONAL - only include them if explicitly requested in the feature specification.
+**Tests**: The examples below include test tasks. For this repository, tests for
+business logic are REQUIRED by the Constitution (TDD-first for Domain/business
+rules). UI tests are required when a feature changes user-facing behavior.
 
 **Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
 
@@ -20,10 +22,12 @@ description: "Task list template for feature implementation"
 
 ## Path Conventions
 
-- **Single project**: `src/`, `tests/` at repository root
-- **Web app**: `backend/src/`, `frontend/src/`
-- **Mobile**: `api/src/`, `ios/src/` or `android/src/`
-- Paths shown below assume single project - adjust based on plan.md structure
+- **AndroidSDD (this repo)**:
+  - Production: `app/src/main/java/...`
+  - JVM unit tests: `app/src/test/java/...` (JUnit 5 + MockK)
+  - Instrumentation/Compose UI tests: `app/src/androidTest/java/...`
+- If the implementation plan introduces additional modules, mirror this pattern
+  per module.
 
 <!-- 
   ============================================================================
@@ -79,21 +83,25 @@ Examples of foundational tasks (adjust based on your project):
 
 **Independent Test**: [How to verify this story works on its own]
 
-### Tests for User Story 1 (OPTIONAL - only if tests requested) ⚠️
+### Tests for User Story 1 (required for business logic) ⚠️
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T010 [P] [US1] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T011 [P] [US1] Integration test for [user journey] in tests/integration/test_[name].py
+- [ ] T010 [P] (US1) Add Domain unit test for [UseCase] in app/src/test/java/.../domain/[UseCase]Test.kt
+- [ ] T011 [P] (US1) Add Data unit test for [RepositoryImpl] mapping/error handling in app/src/test/java/.../data/[RepositoryImpl]Test.kt
+- [ ] T012 [P] (US1) Add Compose UI test for [Screen] in app/src/androidTest/java/.../ui/[Screen]Test.kt (if UI changes)
 
 ### Implementation for User Story 1
 
-- [ ] T012 [P] [US1] Create [Entity1] model in src/models/[entity1].py
-- [ ] T013 [P] [US1] Create [Entity2] model in src/models/[entity2].py
-- [ ] T014 [US1] Implement [Service] in src/services/[service].py (depends on T012, T013)
-- [ ] T015 [US1] Implement [endpoint/feature] in src/[location]/[file].py
-- [ ] T016 [US1] Add validation and error handling
-- [ ] T017 [US1] Add logging for user story 1 operations
+- [ ] T013 [P] (US1) Define Domain models in app/src/main/java/.../domain/model/
+- [ ] T014 [P] (US1) Define repository contract(s) in app/src/main/java/.../domain/repository/
+- [ ] T015 (US1) Implement [UseCase] in app/src/main/java/.../domain/usecase/ (driven by T010)
+- [ ] T016 [P] (US1) Implement Data sources (Retrofit API / Room DAO if needed)
+      in app/src/main/java/.../data/ (driven by T011)
+- [ ] T017 (US1) Implement repository implementation in app/src/main/java/.../data/repository/
+- [ ] T018 [P] (US1) Add ViewModel in app/src/main/java/.../ui/[feature]/[Feature]ViewModel.kt
+- [ ] T019 [P] (US1) Add Compose screen(s) in app/src/main/java/.../ui/[feature]/
+- [ ] T020 (US1) Wire navigation/state/events and verify with Compose UI test (T012)
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
@@ -105,17 +113,17 @@ Examples of foundational tasks (adjust based on your project):
 
 **Independent Test**: [How to verify this story works on its own]
 
-### Tests for User Story 2 (OPTIONAL - only if tests requested) ⚠️
+### Tests for User Story 2 (required for business logic) ⚠️
 
-- [ ] T018 [P] [US2] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T019 [P] [US2] Integration test for [user journey] in tests/integration/test_[name].py
+- [ ] T021 [P] (US2) Add Domain unit test(s) for new/changed use cases in app/src/test/java/.../domain/
+- [ ] T022 [P] (US2) Add/extend Compose UI tests as needed in app/src/androidTest/java/.../ui/
 
 ### Implementation for User Story 2
 
-- [ ] T020 [P] [US2] Create [Entity] model in src/models/[entity].py
-- [ ] T021 [US2] Implement [Service] in src/services/[service].py
-- [ ] T022 [US2] Implement [endpoint/feature] in src/[location]/[file].py
-- [ ] T023 [US2] Integrate with User Story 1 components (if needed)
+- [ ] T023 [P] (US2) Update Domain models/contracts in app/src/main/java/.../domain/
+- [ ] T024 (US2) Implement/modify use cases and repository methods (driven by tests)
+- [ ] T025 [P] (US2) Update Data implementations (Retrofit/Room/mappers)
+- [ ] T026 [P] (US2) Update ViewModel(s) and Compose UI; keep composables free of business logic
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 
@@ -127,16 +135,16 @@ Examples of foundational tasks (adjust based on your project):
 
 **Independent Test**: [How to verify this story works on its own]
 
-### Tests for User Story 3 (OPTIONAL - only if tests requested) ⚠️
+### Tests for User Story 3 (required for business logic) ⚠️
 
-- [ ] T024 [P] [US3] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T025 [P] [US3] Integration test for [user journey] in tests/integration/test_[name].py
+- [ ] T027 [P] (US3) Add Domain unit test(s) for new/changed use cases in app/src/test/java/.../domain/
+- [ ] T028 [P] (US3) Add/extend Compose UI tests as needed in app/src/androidTest/java/.../ui/
 
 ### Implementation for User Story 3
 
-- [ ] T026 [P] [US3] Create [Entity] model in src/models/[entity].py
-- [ ] T027 [US3] Implement [Service] in src/services/[service].py
-- [ ] T028 [US3] Implement [endpoint/feature] in src/[location]/[file].py
+- [ ] T029 [P] (US3) Update Domain (models/use cases) in app/src/main/java/.../domain/
+- [ ] T030 [P] (US3) Update Data implementations in app/src/main/java/.../data/
+- [ ] T031 [P] (US3) Update UI (ViewModel + Compose screen) in app/src/main/java/.../ui/
 
 **Checkpoint**: All user stories should now be independently functional
 
@@ -153,9 +161,9 @@ Examples of foundational tasks (adjust based on your project):
 - [ ] TXXX [P] Documentation updates in docs/
 - [ ] TXXX Code cleanup and refactoring
 - [ ] TXXX Performance optimization across all stories
-- [ ] TXXX [P] Additional unit tests (if requested) in tests/unit/
+- [ ] TXXX [P] Additional unit tests in app/src/test/java/... (JUnit 5 + MockK)
 - [ ] TXXX Security hardening
-- [ ] TXXX Run quickstart.md validation
+- [ ] TXXX Validate build + tests (e.g., `./gradlew test` and relevant androidTest)
 
 ---
 
@@ -178,9 +186,9 @@ Examples of foundational tasks (adjust based on your project):
 
 ### Within Each User Story
 
-- Tests (if included) MUST be written and FAIL before implementation
-- Models before services
-- Services before endpoints
+- Domain/business logic tests MUST be written and FAIL before implementation (TDD)
+- Domain models/contracts before use cases; use cases before ViewModels/UI wiring
+- Data implementations (Retrofit/Room) before wiring UI
 - Core implementation before integration
 - Story complete before moving to next priority
 
@@ -198,13 +206,13 @@ Examples of foundational tasks (adjust based on your project):
 ## Parallel Example: User Story 1
 
 ```bash
-# Launch all tests for User Story 1 together (if tests requested):
-Task: "Contract test for [endpoint] in tests/contract/test_[name].py"
-Task: "Integration test for [user journey] in tests/integration/test_[name].py"
+# Launch all tests for User Story 1 together:
+Task: "Domain unit test for [UseCase] in app/src/test/java/.../domain/[UseCase]Test.kt"
+Task: "Data unit test for [RepositoryImpl] in app/src/test/java/.../data/[RepositoryImpl]Test.kt"
 
-# Launch all models for User Story 1 together:
-Task: "Create [Entity1] model in src/models/[entity1].py"
-Task: "Create [Entity2] model in src/models/[entity2].py"
+# Launch all Domain building blocks together:
+Task: "Define Domain models in app/src/main/java/.../domain/model/"
+Task: "Define repository contract(s) in app/src/main/java/.../domain/repository/"
 ```
 
 ---

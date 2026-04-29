@@ -1,50 +1,148 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report
+
+- Version change: template -> 1.0.0
+- Modified principles:
+  - Template placeholder 1 -> I. Kotlin-First & Null-Safe Code
+  - Template placeholder 2 -> II. Compose-Only UI (No XML Views)
+  - Template placeholder 3 -> III. Clean Architecture + MVVM Layering
+  - Template placeholder 4 -> IV. Dependency Inversion via Hilt
+  - Template placeholder 5 -> V. Quality, Security & Documentation Gates
+- Added sections:
+  - Technology & Platform Requirements
+  - Development Workflow & Quality Gates
+- Removed sections: None
+- Templates requiring updates:
+  - .specify/templates/plan-template.md (updated)
+  - .specify/templates/spec-template.md (no changes needed)
+  - .specify/templates/tasks-template.md (updated)
+  - .specify/templates/checklist-template.md (no changes needed)
+  - .specify/templates/commands/*.md (not present in repo)
+- Follow-up TODOs:
+  - Create README.md with setup + run instructions (constitution requires it).
+-->
+
+# AndroidSDD Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Kotlin-First & Null-Safe Code
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+- Production code MUST be written in Kotlin.
+- Kotlin null-safety MUST be used intentionally:
+  - Avoid the `!!` operator.
+  - Prefer non-nullable types and explicit modeling (`sealed class`, `Result`,
+	etc.) over implicit nulls.
+  - When a non-null contract is required at a boundary, prefer `requireNotNull()`
+	/ `checkNotNull()` with a clear message.
+- Naming MUST follow standard Kotlin/Android conventions.
+- Formatting MUST follow the official Kotlin Style Guide (use IDE formatting).
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+Rationale: idiomatic Kotlin and strict null modeling prevent runtime crashes and
+keep code consistent across the project.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### II. Compose-Only UI (No XML Views)
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+- UI MUST be built with Jetpack Compose.
+- XML-based Views, ViewBinding, DataBinding, and legacy view inflation MUST NOT
+  be introduced.
+- Interop (`AndroidView`) MUST be the exception and requires justification in
+  the PR description.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+Rationale: one UI paradigm reduces complexity and avoids split patterns.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### III. Clean Architecture + MVVM Layering
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+- The codebase MUST follow Clean Architecture with clear layers:
+  - **Domain**: business rules (use cases), pure Kotlin, no Android framework
+	dependencies.
+  - **Data**: repository implementations, remote/local data sources, DTOs, and
+	mappers.
+  - **UI**: Compose screens, ViewModels, UI state/events.
+- Dependency direction MUST be inward:
+  - UI depends on Domain.
+  - Data depends on Domain via interfaces (Domain defines repository contracts).
+  - Domain MUST NOT depend on UI or Data.
+- UI layer MUST use MVVM:
+  - ViewModels expose immutable UI state and one-off events.
+  - Compose UI remains declarative (no business logic in composables).
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+Rationale: clear boundaries keep business rules testable and changes localized.
+
+### IV. Dependency Inversion via Hilt
+
+- Dependency Inversion is mandatory; depend on abstractions, not concretions.
+- Hilt MUST be used for dependency injection (no service locators).
+- Android framework types (`Context`, `Resources`, `Activity`) MUST NOT leak into
+  Domain. If needed, wrap them behind interfaces provided by outer layers.
+
+Rationale: DI + abstractions enables unit testing, swapping implementations, and
+keeping Domain pure.
+
+### V. Quality, Security & Documentation Gates
+
+- **TDD (business logic)**: Domain/business logic MUST be developed test-first
+  (red -> green -> refactor). UI wiring may be implemented after business logic,
+  but MUST remain thin.
+- **Testing standards**:
+  - Unit tests: JUnit 5 + MockK.
+  - UI tests: Jetpack Compose Testing APIs.
+  - Business logic test coverage MUST be >= 80% (Domain layer and any
+	non-trivial logic in Data).
+- **Security**:
+  - Secrets (API keys, tokens) MUST NOT be hardcoded or committed.
+  - Secrets MUST be sourced from `local.properties` and managed via a secrets
+	Gradle plugin (or equivalent build-time injection).
+  - Networking MUST enforce HTTPS for all connections.
+- **Documentation**:
+  - Public classes and functions MUST have KDoc.
+  - The repository MUST maintain a `README.md` with setup and run instructions.
+
+Rationale: these gates prevent regressions, leaks, and undocumented behavior.
+
+## Technology & Platform Requirements
+
+- **Min SDK**: Android API 26.
+- **Networking**: Retrofit + OkHttp.
+- **JSON parsing**: Kotlinx Serialization.
+- **Image loading**: Coil.
+- **Storage**: Room database MAY be used when persistence is required; do not
+  introduce it preemptively.
+
+Notes:
+- Prefer central dependency management (e.g., version catalog) and avoid
+  duplicating versions across modules.
+
+## Development Workflow & Quality Gates
+
+- Every change MUST be made via a PR.
+- PRs MUST include:
+  - a clear architectural placement (Domain/Data/UI) and justification,
+  - tests for new or changed business logic,
+  - a note if any exception to principles is required.
+- Before merging, contributors MUST:
+  - run unit tests,
+  - run relevant Compose UI tests for affected screens,
+  - ensure formatting matches the Kotlin Style Guide.
+
+If a principle cannot be followed, the PR MUST include a written exception with
+trade-offs and an issue to remove the exception later.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+- This Constitution is the highest-level engineering policy for AndroidSDD. If
+  another document conflicts with it, the Constitution wins.
+- Amendments MUST be made via PR and MUST include:
+  1. the proposed text change,
+  2. impact analysis (what breaks, what must migrate),
+  3. updates to dependent templates/docs as needed.
+- Versioning MUST follow semantic versioning:
+  - MAJOR: breaking governance changes or principle removal/redefinition.
+  - MINOR: new principle/section or materially expanded guidance.
+  - PATCH: clarifications, wording, typo fixes.
+- Review expectations:
+  - Every PR reviewer MUST explicitly consider compliance with the Core
+	Principles.
+  - Repeated exceptions require a constitution amendment or a refactor plan.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2026-04-28 | **Last Amended**: 2026-04-28
