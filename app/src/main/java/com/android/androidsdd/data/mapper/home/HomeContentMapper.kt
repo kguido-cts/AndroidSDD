@@ -31,8 +31,6 @@ object HomeContentMapper {
         headline = headline,
         subheadline = subheadline,
         body = body,
-        primaryCtaLabel = primaryCtaLabel,
-        secondaryCtaLabel = secondaryCtaLabel,
     )
 
     private fun FindAClubSectionDto.toDomain() = FindAClubSection(

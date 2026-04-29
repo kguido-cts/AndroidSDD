@@ -1,17 +1,13 @@
 package com.android.androidsdd.ui.screens.home.sections
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -30,8 +26,6 @@ import com.android.androidsdd.ui.TestTags
 @Composable
 fun HomeHeroSection(
     hero: HeroSection,
-    onFindClub: () -> Unit,
-    onViewMemberships: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val gradient = Brush.linearGradient(
@@ -71,19 +65,6 @@ fun HomeHeroSection(
                 color = Color.White.copy(alpha = 0.9f),
                 textAlign = TextAlign.Center,
             )
-            Spacer(Modifier.height(32.dp))
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-            ) {
-                hero.primaryCtaLabel?.let { label ->
-                    Button(onClick = onFindClub) { Text(label) }
-                }
-                hero.secondaryCtaLabel?.let { label ->
-                    OutlinedButton(onClick = onViewMemberships) {
-                        Text(label, color = Color.White)
-                    }
-                }
-            }
         }
     }
 }

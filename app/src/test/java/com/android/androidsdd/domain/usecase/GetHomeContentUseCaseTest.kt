@@ -22,7 +22,7 @@ class GetHomeContentUseCaseTest {
     private lateinit var useCase: GetHomeContentUseCase
 
     private val fakeContent = HomeContent(
-        hero = HeroSection("H", "S", "B", "CTA1", "CTA2"),
+        hero = HeroSection("H", "S", "B"),
         findAClub = FindAClubSection("Find", null, null, emptyList()),
         membershipTypes = MembershipTypesSection("Types", null, emptyList()),
         awards = AwardsSection("Awards", emptyList()),

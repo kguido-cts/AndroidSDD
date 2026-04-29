@@ -79,8 +79,6 @@ fun HomeScreen(
                     item {
                         HomeHeroSection(
                             hero = content.hero,
-                            onFindClub = onFindClub,
-                            onViewMemberships = onViewMemberships,
                             modifier = Modifier.fillMaxWidth(),
                         )
                     }

@@ -20,8 +20,6 @@ class HomeContentMapperTest {
             headline = "Train",
             subheadline = "Harder",
             body = "Join us",
-            primaryCtaLabel = "Find",
-            secondaryCtaLabel = "View",
         ),
         findAClub = FindAClubSectionDto(
             title = "Find a club",
@@ -52,8 +50,6 @@ class HomeContentMapperTest {
         assertEquals("Train", domain.hero.headline)
         assertEquals("Harder", domain.hero.subheadline)
         assertEquals("Join us", domain.hero.body)
-        assertEquals("Find", domain.hero.primaryCtaLabel)
-        assertEquals("View", domain.hero.secondaryCtaLabel)
 
         assertEquals("Find a club", domain.findAClub.title)
         assertEquals("Near you", domain.findAClub.description)
@@ -74,7 +70,6 @@ class HomeContentMapperTest {
     @Test
     fun `optional fields omitted in DTO map to null in domain`() {
         val dto = fullDto.copy(
-            hero = fullDto.hero.copy(primaryCtaLabel = null, secondaryCtaLabel = null),
             findAClub = fullDto.findAClub.copy(description = null, ctaLabel = null),
             membershipTypes = fullDto.membershipTypes.copy(
                 description = null,
@@ -82,8 +77,6 @@ class HomeContentMapperTest {
             ),
         )
         val domain = HomeContentMapper.toDomain(dto)
-        assertNull(domain.hero.primaryCtaLabel)
-        assertNull(domain.hero.secondaryCtaLabel)
         assertNull(domain.findAClub.description)
         assertNull(domain.findAClub.ctaLabel)
         assertNull(domain.membershipTypes.description)

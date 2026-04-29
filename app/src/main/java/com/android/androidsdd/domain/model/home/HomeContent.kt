@@ -17,8 +17,6 @@ data class HeroSection(
     val headline: String,
     val subheadline: String,
     val body: String,
-    val primaryCtaLabel: String?,
-    val secondaryCtaLabel: String?,
 )
 
 /** "Find a club" section. */

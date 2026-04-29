@@ -42,8 +42,6 @@ object FakeHomeContentRepositoryModule {
             headline = "Train Harder.",
             subheadline = "Live Better.",
             body = "Join PeakFit today.",
-            primaryCtaLabel = "Find a Club",
-            secondaryCtaLabel = "View Memberships",
         ),
         findAClub = FindAClubSection(
             title = "Find a club",

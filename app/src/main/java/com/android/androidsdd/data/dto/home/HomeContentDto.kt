@@ -16,8 +16,6 @@ data class HeroSectionDto(
     val headline: String,
     val subheadline: String,
     val body: String,
-    val primaryCtaLabel: String? = null,
-    val secondaryCtaLabel: String? = null,
 )
 
 @Serializable
