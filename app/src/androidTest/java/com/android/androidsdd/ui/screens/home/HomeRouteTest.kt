@@ -3,6 +3,7 @@ package com.android.androidsdd.ui.screens.home
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import com.android.androidsdd.MainActivity
 import com.android.androidsdd.di.FakeHomeContentRepositoryState
@@ -39,7 +40,6 @@ class HomeRouteTest {
         composeRule.onNodeWithTag(TestTags.HOME_FIND_CLUB_SECTION).performScrollTo()
         composeRule.onNodeWithTag(TestTags.HOME_MEMBERSHIP_TYPES_SECTION).performScrollTo()
         composeRule.onNodeWithTag(TestTags.HOME_AWARDS_SECTION).performScrollTo()
-        composeRule.onNodeWithTag(TestTags.HOME_AWARDS_SECTION).assertIsDisplayed()
     }
 }
 

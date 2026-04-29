@@ -1,0 +1,202 @@
+# Implementation Plan: 002 - Membership Content Screen
+
+**Branch**: `002-membership-content` | **Date**: 2026-04-29 | **Spec**: `specs/002-membership-content/spec.md`
+**Input**: Feature specification from `specs/002-membership-content/spec.md`
+
+## Summary
+
+Replace the current **Membership tab placeholder** with a dedicated **Membership Content** screen that shows a header plus two labeled sections, each presenting a membership card (**Classic** and **Black Card**) with a consistent, comparable layout and placeholder icons.
+
+Design references (project root):
+
+- Header: `android_sdd_membership/membership_header.png`
+- Section/card layout (example): `android_sdd_membership/membership_section_1.png`
+
+## Technical Context
+
+**Language/Version**: Kotlin (Android)
+**Primary Dependencies**: Jetpack Compose (Material 3), Hilt, Navigation-Compose, Kotlinx Serialization, Coil
+**Storage**: N/A (bundled JSON only; no persistence)
+**Testing**: JUnit 5, MockK, Jetpack Compose Testing APIs
+**Target Platform**: Android (min SDK 26)
+**Project Type**: Android mobile app (single-activity, Compose)
+**Performance Goals**: Smooth vertical scrolling; avoid heavy recompositions in long benefit lists
+**Constraints**:
+
+- Compose-only UI (no XML)
+- Clean Architecture + MVVM layering
+- Domain stays Android-framework-free (asset reading behind an interface)
+
+**Scale/Scope (this feature)**:
+
+- A single screen under the existing bottom-navigation Membership tab.
+- Local, mocked membership copy (JSON asset) + placeholder icons.
+- No purchase/signup/payment flows.
+
+## Constitution Check
+
+*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
+
+Use this as a hard gate checklist against `/.specify/memory/constitution.md`:
+
+Status: **PASS** (no exceptions required).
+
+- [x] UI uses Jetpack Compose only (no XML Views).
+- [x] Design respects Clean Architecture layers (Domain/Data/UI) and MVVM.
+- [x] DI via Hilt; Domain stays Android-framework-free.
+- [x] Unit tests cover non-trivial Data/Domain logic (JUnit 5 + MockK).
+- [x] Compose UI tests cover Membership screen rendering + scroll.
+- [x] No secrets added; no networking required.
+
+## Membership Content Screen: Layout & Behavior
+
+### Navigation placement
+
+- The Membership Content screen will replace `MembershipPlaceholderScreen` inside `MainScreen` when the Membership tab is selected.
+- No new app-level `Destinations.*` route is required for this milestone (tab-hosted content).
+
+### Scroll model (must-have)
+
+- Implement the screen as a single **vertically scrollable** surface using `LazyColumn`.
+- Each major block is a separate `LazyColumn` item:
+  1. Header
+  2. Section header (Classic)
+  3. Classic membership card
+  4. Section header (Black Card)
+  5. Black Card membership card
+
+### Header area (FR-002)
+
+Header composable shows:
+
+- Screen title (e.g., “Membership”)
+- Optional supporting text (short paragraph)
+- Optional decorative/hero image (if later provided). If absent, layout must remain stable.
+
+### Section headers (FR-003)
+
+Two section headers are required, directly above their related cards:
+
+- Section 1 title: “Classic” (or “Classic membership”)
+- Section 2 title: “Black Card” (or “Black Card membership”)
+
+Each header should be visually distinct (typography + spacing + optional divider).
+
+### Membership cards (FR-004, FR-005, FR-006)
+
+Both cards use the same overall structure to support comparison:
+
+- Plan icon (placeholder if final assets are unavailable)
+- Plan name (“Classic” / “Black Card”)
+- Optional short summary/tagline
+- Benefits list (3+ items when available)
+
+Benefit rows:
+
+- Leading placeholder icon (e.g., checkmark)
+- Benefit text that wraps (no truncation of critical info)
+
+### UI state & error handling
+
+Even though content is local, use a simple MVVM state model for consistency with the app:
+
+- `Loading` (initial)
+- `Content(MembershipContent)`
+- `Error(message)` with a Retry action
+
+Error state primarily covers missing/malformed asset JSON (mirrors Home tab behavior).
+
+### Accessibility & testability
+
+- Provide stable semantics tags for:
+  - screen root
+  - header
+  - each section header
+  - each membership card
+- Icons have content descriptions when meaningful; decorative icons should use `contentDescription = null`.
+- Text must wrap naturally; avoid fixed heights.
+
+## Data source (mocked)
+
+- Membership content MUST load from a bundled JSON file (to match the existing Home content approach).
+- Planned location: `app/src/main/assets/mock/membership_content.json`
+- Contract: `specs/002-membership-content/contracts/membership-content-json.md`
+
+## Project Structure
+
+### Documentation (this feature)
+
+```text
+specs/002-membership-content/
+├── spec.md
+├── plan.md
+├── research.md
+├── data-model.md
+├── quickstart.md
+├── contracts/
+│   └── membership-content-json.md
+└── tasks.md  # Phase 2 output (/speckit.tasks command - not generated by /speckit.plan)
+```
+
+### Source Code (repository root)
+```text
+app/src/main/assets/mock/
+└── membership_content.json
+
+app/src/main/java/com/android/androidsdd/
+├── data/
+│   ├── dto/membership/                 # Kotlinx Serialization DTOs
+│   ├── mapper/membership/              # DTO → Domain mappers
+│   └── repository/                     # AssetMembershipContentRepository
+├── di/
+│   └── AppModule.kt                    # add Membership bindings
+├── domain/
+│   ├── model/membership/               # MembershipContent + entities
+│   ├── repository/                     # MembershipContentRepository interface
+│   └── usecase/                        # GetMembershipContentUseCase
+└── ui/
+    ├── TestTags.kt                     # add Membership tags
+    └── screens/membership/
+        ├── MembershipScreen.kt         # route composable (wires VM + UI)
+        ├── MembershipViewModel.kt
+        ├── MembershipUiState.kt
+        └── sections/
+            ├── MembershipHeaderSection.kt
+            ├── MembershipSectionHeader.kt
+            └── MembershipPlanCard.kt
+
+app/src/test/java/com/android/androidsdd/
+└── data/repository/AssetMembershipContentRepositoryTest.kt
+
+app/src/androidTest/java/com/android/androidsdd/
+├── di/FakeHomeContentRepositoryModule.kt  # extend to also provide Membership fakes
+└── ui/screens/membership/MembershipRouteTest.kt
+```
+
+**Structure Decision**: Use the existing Clean Architecture package layout under `app/src/main/java/com/android/androidsdd/`, mirroring the Home content implementation.
+
+## Testing strategy (Membership-specific)
+
+### JVM unit tests (Domain/Data)
+
+- `AssetMembershipContentRepositoryTest`:
+  - returns mapped Domain content for valid JSON
+  - throws typed error for missing asset file
+  - throws typed error for malformed/invalid JSON
+- Mapper tests (optional if repository test already verifies mapping, but acceptable to unit-test mappers directly).
+- `MembershipViewModelTest` (if ViewModel has non-trivial state transitions):
+  - `Loading → Content`
+  - `Loading → Error → Retry → Content`
+
+### Compose UI tests (instrumented)
+
+- `MembershipRouteTest`:
+  - navigate Landing → Main (Continue as guest)
+  - switch to Membership tab
+  - verify header and both section headers are displayed
+  - verify both membership cards render and are reachable via scroll
+  - verify placeholder icon behavior does not crash when icon metadata is missing
+
+## Complexity Tracking
+
+No constitution violations required for this feature.

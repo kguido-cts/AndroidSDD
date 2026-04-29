@@ -33,7 +33,6 @@ import com.android.androidsdd.ui.screens.home.sections.MembershipTypesSection
 fun HomeScreen(
     viewModel: HomeViewModel,
     onFindClub: () -> Unit,
-    onViewMemberships: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()

@@ -28,8 +28,8 @@ import com.android.androidsdd.domain.model.home.AwardItem
 import com.android.androidsdd.domain.model.home.AwardsSection
 import com.android.androidsdd.ui.TestTags
 
-private val AwardsDarkBlue = Color(0xFF0D1B3E)
-private val AwardsAccent = Color(0xFF5B9BD5)
+private val AwardsDarkBlue = Color(0xFF1565C0)
+private val AwardsAccent = Color(0xFF90CAF9)
 
 /** Awards/highlights section on the Home screen. */
 @Composable

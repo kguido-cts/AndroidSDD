@@ -35,12 +35,16 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.android.androidsdd.domain.model.home.ClubSummary
 import com.android.androidsdd.domain.model.home.FindAClubSection
 import com.android.androidsdd.ui.TestTags
+
+private val ClassicAccent = Color(0xFF1565C0)
+private val ClassicAccentMuted = ClassicAccent.copy(alpha = 0.25f)
 
 /** "Find a club" section on the Home screen — mobile-adapted from website design. */
 @Composable
@@ -141,6 +145,10 @@ fun FindAClubSection(
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp),
                 shape = RoundedCornerShape(12.dp),
+                colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+                    containerColor = ClassicAccent,
+                    contentColor = Color.White,
+                ),
             ) {
                 Text(text = label, style = MaterialTheme.typography.labelLarge)
             }
@@ -164,7 +172,7 @@ private fun ClubCard(
             // Area badge
             Surface(
                 shape = RoundedCornerShape(6.dp),
-                color = MaterialTheme.colorScheme.primaryContainer,
+                color = ClassicAccentMuted,
             ) {
                 Row(
                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
@@ -173,14 +181,14 @@ private fun ClubCard(
                     Icon(
                         imageVector = Icons.Default.LocationOn,
                         contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                        tint = ClassicAccent,
                         modifier = Modifier.size(12.dp),
                     )
                     Spacer(Modifier.width(4.dp))
                     Text(
                         text = club.area,
                         style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer,
+                        color = ClassicAccent,
                     )
                 }
             }
@@ -219,6 +227,10 @@ private fun ClubCard(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(8.dp),
                 contentPadding = PaddingValues(vertical = 10.dp),
+                colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+                    containerColor = ClassicAccent,
+                    contentColor = Color.White,
+                ),
             ) {
                 Text(text = "Join this club", style = MaterialTheme.typography.labelMedium)
             }
@@ -230,13 +242,13 @@ private fun ClubCard(
 private fun AmenityChip(label: String) {
     Surface(
         shape = RoundedCornerShape(20.dp),
-        color = MaterialTheme.colorScheme.secondaryContainer,
+        color = ClassicAccentMuted,
     ) {
         Text(
             text = label,
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
             style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.onSecondaryContainer,
+            color = ClassicAccent,
         )
     }
 }

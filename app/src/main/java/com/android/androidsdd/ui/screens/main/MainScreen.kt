@@ -23,7 +23,8 @@ import com.android.androidsdd.ui.navigation.MainTab
 import com.android.androidsdd.ui.screens.account.AccountPlaceholderScreen
 import com.android.androidsdd.ui.screens.home.HomeScreen
 import com.android.androidsdd.ui.screens.home.HomeViewModel
-import com.android.androidsdd.ui.screens.membership.MembershipPlaceholderScreen
+import com.android.androidsdd.ui.screens.membership.MembershipScreen
+import com.android.androidsdd.ui.screens.membership.MembershipViewModel
 import kotlinx.coroutines.launch
 
 /**
@@ -73,9 +74,6 @@ fun MainScreen(modifier: Modifier = Modifier) {
                             snackbarHostState.showSnackbar("Find a club — coming soon!")
                         }
                     },
-                    onViewMemberships = {
-                        selectedIndex = MainTab.MEMBERSHIP.ordinal
-                    },
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(innerPadding),
@@ -83,7 +81,9 @@ fun MainScreen(modifier: Modifier = Modifier) {
             }
 
             MainTab.MEMBERSHIP -> {
-                MembershipPlaceholderScreen(
+                val membershipViewModel: MembershipViewModel = hiltViewModel()
+                MembershipScreen(
+                    viewModel = membershipViewModel,
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(innerPadding),

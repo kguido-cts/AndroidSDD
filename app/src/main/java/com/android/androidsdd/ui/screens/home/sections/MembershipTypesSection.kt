@@ -1,6 +1,6 @@
 package com.android.androidsdd.ui.screens.home.sections
 
-import androidx.compose.foundation.border
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -20,12 +20,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.android.androidsdd.domain.model.home.MembershipPlanSummary
 import com.android.androidsdd.domain.model.home.MembershipTypesSection
 import com.android.androidsdd.ui.TestTags
+
+private val BlackCardAccent = Color(0xFF212121)
+private val BlackCardSurface = Color(0xFF2C2C2C)
+private val BlackCardOnSurface = Color(0xFFEEEEEE)
+private val ClassicAccent = Color(0xFF1565C0)
 
 /** Membership types section on the Home screen. */
 @Composable
@@ -65,18 +72,11 @@ fun MembershipTypesSection(
                 modifier = Modifier.padding(horizontal = 16.dp),
             )
         } else {
-            // Determine "popular" plan — middle index if 3+ plans, else last
-            val popularIndex = if (section.plans.size >= 3) section.plans.size / 2 else section.plans.lastIndex
-
             Column(
                 modifier = Modifier.padding(horizontal = 16.dp),
             ) {
                 section.plans.forEachIndexed { index, plan ->
-                    val isPopular = index == popularIndex
-                    MembershipPlanCard(
-                        plan = plan,
-                        isPopular = isPopular,
-                    )
+                    MembershipPlanCard(plan = plan)
                     if (index < section.plans.lastIndex) Spacer(Modifier.height(16.dp))
                 }
             }
@@ -89,104 +89,96 @@ fun MembershipTypesSection(
 @Composable
 private fun MembershipPlanCard(
     plan: MembershipPlanSummary,
-    isPopular: Boolean,
     modifier: Modifier = Modifier,
 ) {
-    val contentColor = if (isPopular)
-        MaterialTheme.colorScheme.onPrimaryContainer
-    else
-        MaterialTheme.colorScheme.onSurface
+    val isBlackCard = plan.id == "black_card"
 
-    val accentColor = if (isPopular)
-        MaterialTheme.colorScheme.onPrimaryContainer
-    else
-        MaterialTheme.colorScheme.primary
+    val cardContainerColor = if (isBlackCard) BlackCardSurface else MaterialTheme.colorScheme.surface
+    val contentColor = if (isBlackCard) BlackCardOnSurface else MaterialTheme.colorScheme.onSurface
+    val topBandColor = if (isBlackCard) BlackCardAccent else ClassicAccent
 
-    val borderModifier = if (isPopular) {
-        modifier.border(
-            width = 2.dp,
-            color = MaterialTheme.colorScheme.primary,
-            shape = RoundedCornerShape(16.dp),
-        )
-    } else modifier
+    val borderModifier = modifier
 
     Card(
         modifier = borderModifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = if (isPopular) 6.dp else 2.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = if (isPopular)
-                MaterialTheme.colorScheme.primaryContainer
-            else
-                MaterialTheme.colorScheme.surface,
-        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        colors = CardDefaults.cardColors(containerColor = cardContainerColor),
     ) {
-        Column(modifier = Modifier.padding(20.dp)) {
-
-
-            // Plan name
-            Text(
-                text = plan.name,
-                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                color = contentColor,
-            )
-
-            // Tagline
-            plan.tagline?.let { tagline ->
-                Spacer(Modifier.height(4.dp))
+        Column {
+            // ── Top band (plan name + price) ──────────────────────────────
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
+                    .background(topBandColor)
+                    .padding(horizontal = 20.dp, vertical = 16.dp),
+            ) {
                 Text(
-                    text = tagline,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = contentColor.copy(alpha = 0.7f),
+                    text = plan.name.uppercase(),
+                    style = MaterialTheme.typography.labelLarge.copy(
+                        fontWeight = FontWeight.ExtraBold,
+                        letterSpacing = androidx.compose.ui.unit.TextUnit(
+                            2f,
+                            androidx.compose.ui.unit.TextUnitType.Sp,
+                        ),
+                    ),
+                    color = Color.White,
                 )
-            }
-
-            // Price
-            plan.priceFrom?.let { price ->
-                Spacer(Modifier.height(8.dp))
-                Row(verticalAlignment = Alignment.Bottom) {
+                plan.tagline?.let { tagline ->
+                    Spacer(Modifier.height(2.dp))
                     Text(
-                        text = price.substringBefore("/"),
-                        style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.ExtraBold),
-                        color = accentColor,
+                        text = tagline,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = Color.White.copy(alpha = 0.85f),
                     )
-                    if (price.contains("/")) {
-                        Spacer(Modifier.width(4.dp))
+                }
+                plan.priceFrom?.let { price ->
+                    Spacer(Modifier.height(6.dp))
+                    Row(verticalAlignment = Alignment.Bottom) {
                         Text(
-                            text = "/${price.substringAfter("/")}",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            modifier = Modifier.padding(bottom = 4.dp),
+                            text = price.substringBefore("/"),
+                            style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.ExtraBold),
+                            color = Color.White,
                         )
+                        if (price.contains("/")) {
+                            Spacer(Modifier.width(4.dp))
+                            Text(
+                                text = "/${price.substringAfter("/")}",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = Color.White.copy(alpha = 0.75f),
+                                modifier = Modifier.padding(bottom = 4.dp),
+                            )
+                        }
                     }
                 }
             }
 
-            // Feature bullets with checkmarks
+            // ── Feature bullets ───────────────────────────────────────────
             if (plan.bullets.isNotEmpty()) {
-                Spacer(Modifier.height(16.dp))
-                plan.bullets.forEach { bullet ->
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.padding(vertical = 3.dp),
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Check,
-                            contentDescription = null,
-                            tint = accentColor,
-                            modifier = Modifier.size(16.dp),
-                        )
-                        Spacer(Modifier.width(8.dp))
-                        Text(
-                            text = bullet,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = contentColor,
-                        )
+                Column(modifier = Modifier.padding(horizontal = 20.dp, vertical = 16.dp)) {
+                    plan.bullets.forEach { bullet ->
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.padding(vertical = 3.dp),
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Check,
+                                contentDescription = null,
+                                tint = if (isBlackCard) Color.White else topBandColor,
+                                modifier = Modifier.size(16.dp),
+                            )
+                            Spacer(Modifier.width(8.dp))
+                            Text(
+                                text = bullet,
+                                style = MaterialTheme.typography.bodySmall,
+                                color = contentColor,
+                            )
+                        }
                     }
+                    Spacer(Modifier.height(4.dp))
                 }
             }
-
-            Spacer(Modifier.height(4.dp))
         }
     }
 }
