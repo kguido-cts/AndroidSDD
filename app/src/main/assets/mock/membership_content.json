@@ -1,0 +1,44 @@
+{
+  "header": {
+    "title": "Membership",
+    "body": "Compare Classic and Black Card memberships to find the right fit for your training."
+  },
+  "sections": [
+    {
+      "id": "classic_section",
+      "title": "Classic",
+      "plans": [
+        {
+          "id": "classic",
+          "name": "Classic",
+          "tagline": "Best for everyday gym-goers",
+          "iconKey": null,
+          "benefits": [
+            { "id": "classic_b1", "text": "Unlimited gym access" },
+            { "id": "classic_b2", "text": "Access to your home club" },
+            { "id": "classic_b3", "text": "Free fitness orientation" },
+            { "id": "classic_b4", "text": "Locker room access" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "black_card_section",
+      "title": "Black Card",
+      "plans": [
+        {
+          "id": "black_card",
+          "name": "Black Card",
+          "tagline": "Best for committed athletes",
+          "iconKey": null,
+          "benefits": [
+            { "id": "black_b1", "text": "All-club access" },
+            { "id": "black_b2", "text": "Guest privileges" },
+            { "id": "black_b3", "text": "Premium perks (placeholder)" },
+            { "id": "black_b4", "text": "Priority support (placeholder)" }
+          ]
+        }
+      ]
+    }
+  ]
+}
