@@ -73,9 +73,6 @@ fun MainScreen(modifier: Modifier = Modifier) {
                             snackbarHostState.showSnackbar("Find a club — coming soon!")
                         }
                     },
-                    onViewMemberships = {
-                        selectedIndex = MainTab.MEMBERSHIP.ordinal
-                    },
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(innerPadding),
