@@ -39,22 +39,18 @@
     "description": "Choose a plan that fits your goals.",
     "plans": [
       {
-        "id": "basic",
-        "name": "Basic",
-        "priceFrom": "$19.99/mo",
-        "bullets": ["Gym access", "Locker rooms"]
+        "id": "classic",
+        "name": "Classic",
+        "priceFrom": "$29/mo",
+        "tagline": "Best for everyday gym-goers",
+        "bullets": ["Full Gym Access", "Locker Rooms & Showers", "Fitness App"]
       },
       {
-        "id": "standard",
-        "name": "Standard",
-        "priceFrom": "$34.99/mo",
-        "bullets": ["Gym access", "Locker rooms", "Group classes", "Guest passes"]
-      },
-      {
-        "id": "premium",
-        "name": "Premium",
-        "priceFrom": "$54.99/mo",
-        "bullets": ["All Standard benefits", "Personal trainer session/mo", "Spa access", "All clubs access"]
+        "id": "black_card",
+        "name": "Black Card",
+        "priceFrom": "$59/mo",
+        "tagline": "Best for committed athletes & wellness enthusiasts",
+        "bullets": ["All-Club Access", "24/7 Unlimited Access", "Spa & Massage Credits"]
       }
     ]
   },

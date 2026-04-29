@@ -92,7 +92,6 @@ fun HomeScreen(
                     item {
                         MembershipTypesSection(
                             section = content.membershipTypes,
-                            onViewMemberships = onViewMemberships,
                             modifier = Modifier.fillMaxWidth(),
                         )
                     }

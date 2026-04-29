@@ -58,6 +58,7 @@ object HomeContentMapper {
         id = id,
         name = name,
         priceFrom = priceFrom,
+        tagline = tagline,
         bullets = bullets,
     )
 

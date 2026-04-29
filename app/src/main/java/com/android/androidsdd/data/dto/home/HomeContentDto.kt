@@ -47,6 +47,7 @@ data class MembershipPlanSummaryDto(
     val id: String,
     val name: String,
     val priceFrom: String? = null,
+    val tagline: String? = null,
     val bullets: List<String> = emptyList(),
 )
 

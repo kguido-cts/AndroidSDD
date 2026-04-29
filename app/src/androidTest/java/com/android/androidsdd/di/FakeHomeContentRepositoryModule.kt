@@ -52,7 +52,10 @@ object FakeHomeContentRepositoryModule {
         membershipTypes = MembershipTypesSection(
             title = "Membership types",
             description = "Pick a plan",
-            plans = listOf(MembershipPlanSummary("p1", "Basic", "\$19.99/mo", listOf("Gym access"))),
+            plans = listOf(
+                MembershipPlanSummary("classic", "Classic", "\$29/mo", "Best for everyday gym-goers", listOf("Full Gym Access")),
+                MembershipPlanSummary("black_card", "Black Card", "\$59/mo", "Best for committed athletes", listOf("All-Club Access")),
+            ),
         ),
         awards = AwardsSection(
             title = "Awards",
