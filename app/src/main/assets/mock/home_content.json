@@ -59,18 +59,21 @@
     "items": [
       {
         "id": "award_1",
-        "title": "Best Gym 2025",
-        "description": "Recognized for community impact and member results."
+        "title": "Best Gym Chain of the Year",
+        "stat": "2025 National Fitness Association",
+        "description": "Recognised for outstanding facility quality, member satisfaction and community engagement across all locations."
       },
       {
         "id": "award_2",
-        "title": "Top Trainers",
-        "description": "Certified coaches with proven track records."
+        "title": "Top Workplace Wellness Partner",
+        "stat": "2024 Corporate Health Alliance",
+        "description": "Awarded for our innovative corporate wellness programmes that helped over 50,000 employees improve their health."
       },
       {
         "id": "award_3",
-        "title": "50+ Clubs",
-        "description": "Premium clubs nationwide with modern facilities."
+        "title": "Most Inclusive Fitness Brand",
+        "stat": "2024 Health Equity Institute",
+        "description": "Honoured for creating welcoming, judgement-free environments where members of all fitness levels feel at home."
       }
     ]
   }

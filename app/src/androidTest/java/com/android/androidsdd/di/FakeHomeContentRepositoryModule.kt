@@ -59,7 +59,7 @@ object FakeHomeContentRepositoryModule {
         ),
         awards = AwardsSection(
             title = "Awards",
-            items = listOf(AwardItem("a1", "Best Gym 2025", "Top community gym")),
+            items = listOf(AwardItem("a1", "Best Gym Chain of the Year", "Recognised for outstanding facility quality.", "2025 National Fitness Association")),
         ),
     )
 

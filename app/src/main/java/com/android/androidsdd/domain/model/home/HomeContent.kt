@@ -63,5 +63,6 @@ data class AwardItem(
     val id: String,
     val title: String,
     val description: String,
+    val stat: String? = null,
 )
 
