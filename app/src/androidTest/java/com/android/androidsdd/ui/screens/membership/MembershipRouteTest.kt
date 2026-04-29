@@ -42,7 +42,7 @@ class MembershipRouteTest {
     fun membershipRoute_success_rendersHeaderAndSections_andScrollsToBlackCard() {
         composeRule.onNodeWithTag(TestTags.TAB_MEMBERSHIP).performClick()
 
-        composeRule.onNodeWithTag(TestTags.MEMBERSHIP_HEADER).assertIsDisplayed()
+        composeRule.onNodeWithTag(TestTags.MEMBERSHIP_HEADER_SECTION).assertIsDisplayed()
         composeRule.onNodeWithTag(TestTags.MEMBERSHIP_SECTION_HEADER_CLASSIC).assertIsDisplayed()
 
         composeRule.onNodeWithTag(TestTags.MEMBERSHIP_PLAN_CARD_BLACK_CARD).performScrollTo()
@@ -62,10 +62,10 @@ class MembershipRouteTest {
         composeRule.onNodeWithTag(TestTags.MEMBERSHIP_RETRY_BTN).performClick()
 
         composeRule.waitUntil(timeoutMillis = 5_000) {
-            composeRule.onAllNodesWithTag(TestTags.MEMBERSHIP_HEADER)
+            composeRule.onAllNodesWithTag(TestTags.MEMBERSHIP_HEADER_SECTION)
                 .fetchSemanticsNodes().isNotEmpty()
         }
-        composeRule.onNodeWithTag(TestTags.MEMBERSHIP_HEADER).assertIsDisplayed()
+        composeRule.onNodeWithTag(TestTags.MEMBERSHIP_HEADER_SECTION).assertIsDisplayed()
     }
 
     @Test
@@ -80,7 +80,7 @@ class MembershipRouteTest {
         // Black card benefits (may require scrolling)
         composeRule.onNodeWithText("All-club access").performScrollTo().assertIsDisplayed()
         composeRule.onNodeWithText("Guest privileges").assertIsDisplayed()
-        composeRule.onNodeWithText("Premium perks (placeholder)").assertIsDisplayed()
+        composeRule.onNodeWithText("Premium amenities & tanning").assertIsDisplayed()
     }
 
     @Test
@@ -96,8 +96,8 @@ class MembershipRouteTest {
 
 private fun defaultContent(): MembershipContent = MembershipContent(
     header = MembershipHeader(
-        title = "Membership",
-        body = "Compare Classic and Black Card memberships.",
+        title = "Membership Plans",
+        body = "Flexible, affordable, and packed with perks. Pick the plan that moves you.",
     ),
     sections = listOf(
         MembershipSection(
@@ -129,7 +129,7 @@ private fun defaultContent(): MembershipContent = MembershipContent(
                     benefits = listOf(
                         MembershipBenefit("black_b1", "All-club access"),
                         MembershipBenefit("black_b2", "Guest privileges"),
-                        MembershipBenefit("black_b3", "Premium perks (placeholder)"),
+                        MembershipBenefit("black_b3", "Premium amenities & tanning"),
                     ),
                 ),
             ),

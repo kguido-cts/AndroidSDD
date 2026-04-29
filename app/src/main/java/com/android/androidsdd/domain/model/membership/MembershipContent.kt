@@ -14,6 +14,7 @@ data class MembershipContent(
 data class MembershipHeader(
     val title: String,
     val body: String?,
+    val tagline: String? = null,
 )
 
 /** A logical section rendered with a section header (e.g., Classic, Black Card). */

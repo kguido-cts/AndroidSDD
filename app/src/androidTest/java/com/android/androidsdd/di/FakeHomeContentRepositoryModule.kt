@@ -12,6 +12,13 @@ import com.android.androidsdd.domain.model.home.HomeContentError
 import com.android.androidsdd.domain.model.home.MembershipPlanSummary
 import com.android.androidsdd.domain.model.home.MembershipTypesSection
 import com.android.androidsdd.domain.repository.HomeContentRepository
+import com.android.androidsdd.domain.model.membership.MembershipBenefit
+import com.android.androidsdd.domain.model.membership.MembershipContent
+import com.android.androidsdd.domain.model.membership.MembershipContentError
+import com.android.androidsdd.domain.model.membership.MembershipHeader
+import com.android.androidsdd.domain.model.membership.MembershipPlan
+import com.android.androidsdd.domain.model.membership.MembershipSection
+import com.android.androidsdd.domain.repository.MembershipContentRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -27,6 +34,12 @@ import android.content.Context
 /** Toggle to simulate repository failure in UI tests. */
 object FakeHomeContentRepositoryState {
     var shouldFail: Boolean = false
+}
+
+/** Toggle to simulate membership repository failure/content in UI tests. */
+object FakeMembershipContentRepositoryState {
+    var shouldFail: Boolean = false
+    var content: MembershipContent = defaultMembershipContent()
 }
 
 /** Test-only Hilt module replacing [AppModule] with fakes for UI tests. */
@@ -84,6 +97,61 @@ object FakeHomeContentRepositoryModule {
     @Provides
     @IoDispatcher
     fun provideIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
+
+    @Provides
+    @Singleton
+    fun provideMembershipContentRepository(): MembershipContentRepository =
+        object : MembershipContentRepository {
+            override suspend fun getMembershipContent(): MembershipContent {
+                if (FakeMembershipContentRepositoryState.shouldFail) throw MembershipContentError.MissingData
+                return FakeMembershipContentRepositoryState.content
+            }
+        }
 }
+
+private fun defaultMembershipContent(): MembershipContent = MembershipContent(
+    header = MembershipHeader(
+        title = "Membership Plans",
+        body = "Flexible, affordable, and packed with perks. Pick the plan that moves you.",
+    ),
+    sections = listOf(
+        MembershipSection(
+            id = "classic_section",
+            title = "Classic",
+            plans = listOf(
+                MembershipPlan(
+                    id = "classic",
+                    name = "Classic",
+                    tagline = "Best for everyday gym-goers",
+                    iconKey = null,
+                    benefits = listOf(
+                        MembershipBenefit("classic_b1", "Unlimited gym access"),
+                        MembershipBenefit("classic_b2", "Access to your home club"),
+                        MembershipBenefit("classic_b3", "Free fitness orientation"),
+                        MembershipBenefit("classic_b4", "Locker room access"),
+                    ),
+                ),
+            ),
+        ),
+        MembershipSection(
+            id = "black_card_section",
+            title = "Black Card",
+            plans = listOf(
+                MembershipPlan(
+                    id = "black_card",
+                    name = "Black Card",
+                    tagline = "Best for committed athletes",
+                    iconKey = null,
+                    benefits = listOf(
+                        MembershipBenefit("black_b1", "All-club access"),
+                        MembershipBenefit("black_b2", "Guest privileges"),
+                        MembershipBenefit("black_b3", "Premium amenities & tanning"),
+                        MembershipBenefit("black_b4", "Priority member support"),
+                    ),
+                ),
+            ),
+        ),
+    ),
+)
 
 

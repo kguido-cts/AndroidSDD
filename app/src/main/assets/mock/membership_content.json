@@ -1,7 +1,7 @@
 {
   "header": {
-    "title": "Membership",
-    "body": "Compare Classic and Black Card memberships to find the right fit for your training."
+    "title": "Membership Plans",
+    "body": "Flexible, affordable, and packed with perks. Pick the plan that moves you."
   },
   "sections": [
     {
@@ -34,8 +34,8 @@
           "benefits": [
             { "id": "black_b1", "text": "All-club access" },
             { "id": "black_b2", "text": "Guest privileges" },
-            { "id": "black_b3", "text": "Premium perks (placeholder)" },
-            { "id": "black_b4", "text": "Priority support (placeholder)" }
+            { "id": "black_b3", "text": "Premium amenities & tanning" },
+            { "id": "black_b4", "text": "Priority member support" }
           ]
         }
       ]

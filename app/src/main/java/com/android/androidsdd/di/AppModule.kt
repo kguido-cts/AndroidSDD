@@ -3,7 +3,9 @@ package com.android.androidsdd.di
 import com.android.androidsdd.data.datasource.AndroidAssetReader
 import com.android.androidsdd.data.datasource.AssetReader
 import com.android.androidsdd.data.repository.AssetHomeContentRepository
+import com.android.androidsdd.data.repository.AssetMembershipContentRepository
 import com.android.androidsdd.domain.repository.HomeContentRepository
+import com.android.androidsdd.domain.repository.MembershipContentRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -32,6 +34,10 @@ abstract class AppModule {
     @Binds
     @Singleton
     abstract fun bindHomeContentRepository(impl: AssetHomeContentRepository): HomeContentRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindMembershipContentRepository(impl: AssetMembershipContentRepository): MembershipContentRepository
 
     companion object {
 
