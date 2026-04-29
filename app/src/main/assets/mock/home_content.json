@@ -1,0 +1,79 @@
+{
+  "hero": {
+    "headline": "Train Harder.",
+    "subheadline": "Live Better.",
+    "body": "Join PeakFit — over 50 premium clubs nationwide designed to push your limits and reward your effort.",
+    "primaryCtaLabel": "Find a Club",
+    "secondaryCtaLabel": "View Memberships"
+  },
+  "findAClub": {
+    "title": "Find a club",
+    "description": "Discover a PeakFit near you.",
+    "ctaLabel": "Find a club",
+    "clubs": [
+      {
+        "id": "club_downtown",
+        "name": "Downtown",
+        "area": "Central",
+        "shortDescription": "Cardio, weights, and classes"
+      },
+      {
+        "id": "club_westside",
+        "name": "Westside",
+        "area": "West",
+        "shortDescription": "Olympic pool, spa, and group fitness"
+      },
+      {
+        "id": "club_northpark",
+        "name": "North Park",
+        "area": "North",
+        "shortDescription": "Outdoor track and CrossFit area"
+      }
+    ]
+  },
+  "membershipTypes": {
+    "title": "Membership types",
+    "description": "Choose a plan that fits your goals.",
+    "plans": [
+      {
+        "id": "basic",
+        "name": "Basic",
+        "priceFrom": "$19.99/mo",
+        "bullets": ["Gym access", "Locker rooms"]
+      },
+      {
+        "id": "standard",
+        "name": "Standard",
+        "priceFrom": "$34.99/mo",
+        "bullets": ["Gym access", "Locker rooms", "Group classes", "Guest passes"]
+      },
+      {
+        "id": "premium",
+        "name": "Premium",
+        "priceFrom": "$54.99/mo",
+        "bullets": ["All Standard benefits", "Personal trainer session/mo", "Spa access", "All clubs access"]
+      }
+    ]
+  },
+  "awards": {
+    "title": "Awards & Recognition",
+    "items": [
+      {
+        "id": "award_1",
+        "title": "Best Gym 2025",
+        "description": "Recognized for community impact and member results."
+      },
+      {
+        "id": "award_2",
+        "title": "Top Trainers",
+        "description": "Certified coaches with proven track records."
+      },
+      {
+        "id": "award_3",
+        "title": "50+ Clubs",
+        "description": "Premium clubs nationwide with modern facilities."
+      }
+    ]
+  }
+}
+
