@@ -59,7 +59,7 @@ object FakeHomeContentRepositoryModule {
         findAClub = FindAClubSection(
             title = "Find a club",
             description = "Near you",
-            ctaLabel = "Find a club",
+            ctaLabel = null,
             clubs = listOf(ClubSummary("c1", "Downtown", "Central", "Gym and classes", listOf("Gym", "Pool"))),
         ),
         membershipTypes = MembershipTypesSection(

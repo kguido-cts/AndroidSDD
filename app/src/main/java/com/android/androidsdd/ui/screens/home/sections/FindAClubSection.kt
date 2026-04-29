@@ -136,23 +136,6 @@ fun FindAClubSection(
         }
 
         Spacer(Modifier.height(24.dp))
-
-        // View all CTA
-        section.ctaLabel?.let { label ->
-            Button(
-                onClick = onFindClub,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-                shape = RoundedCornerShape(12.dp),
-                colors = androidx.compose.material3.ButtonDefaults.buttonColors(
-                    containerColor = ClassicAccent,
-                    contentColor = Color.White,
-                ),
-            ) {
-                Text(text = label, style = MaterialTheme.typography.labelLarge)
-            }
-        }
     }
 }
 

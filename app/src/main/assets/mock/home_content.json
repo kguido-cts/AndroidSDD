@@ -9,7 +9,7 @@
   "findAClub": {
     "title": "Find a club",
     "description": "Discover a PeakFit near you.",
-    "ctaLabel": "View all clubs",
+    "ctaLabel": null,
     "clubs": [
       {
         "id": "club_downtown",
