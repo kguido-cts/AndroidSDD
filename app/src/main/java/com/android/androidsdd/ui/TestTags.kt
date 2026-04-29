@@ -26,6 +26,15 @@ object TestTags {
     const val HOME_RETRY_BTN = "home_retry_btn"
 
     const val MEMBERSHIP_PLACEHOLDER_SCREEN = "membership_placeholder_screen"
+    const val MEMBERSHIP_SCREEN = "membership_screen"
+    const val MEMBERSHIP_LOADING = "membership_loading"
+    const val MEMBERSHIP_ERROR = "membership_error"
+    const val MEMBERSHIP_RETRY_BTN = "membership_retry_btn"
+    const val MEMBERSHIP_HEADER_SECTION = "membership_header_section"
+    const val MEMBERSHIP_SECTION_HEADER_CLASSIC = "membership_section_header_classic"
+    const val MEMBERSHIP_SECTION_HEADER_BLACK_CARD = "membership_section_header_black_card"
+    const val MEMBERSHIP_PLAN_CARD_CLASSIC = "membership_plan_card_classic"
+    const val MEMBERSHIP_PLAN_CARD_BLACK_CARD = "membership_plan_card_black_card"
     const val ACCOUNT_PLACEHOLDER_SCREEN = "account_placeholder_screen"
 }
 
