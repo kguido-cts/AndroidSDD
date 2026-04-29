@@ -17,21 +17,28 @@
   the iteration process.
 -->
 
-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
-**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
-**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
-**Project Type**: [e.g., library/cli/web-service/mobile-app/compiler/desktop-app or NEEDS CLARIFICATION]  
-**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
-**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
-**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
+**Language/Version**: Kotlin (Android)  
+**Primary Dependencies**: Jetpack Compose, Hilt, Retrofit+OkHttp, Kotlinx Serialization, Coil  
+**Storage**: Room (only if the feature requires persistence; otherwise N/A)  
+**Testing**: JUnit 5, MockK, Jetpack Compose Testing APIs  
+**Target Platform**: Android (min SDK 26)
+**Project Type**: Android mobile app  
+**Performance Goals**: 60 fps UI where applicable  
+**Constraints**: Compose-only UI; Clean Architecture layering; no secrets in repo  
+**Scale/Scope**: Varies by feature (document for this plan)
 
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+Use this as a hard gate checklist against `/.specify/memory/constitution.md`:
+
+- UI changes use Jetpack Compose only (no XML Views).
+- Proposed design respects Clean Architecture layers (Domain/Data/UI) and MVVM.
+- DI is done via Hilt; Domain stays Android-framework-free.
+- Business logic has TDD-first unit tests (JUnit 5 + MockK).
+- Feature test strategy is defined (unit + relevant Compose UI tests).
+- Secrets are not hardcoded; networking uses HTTPS.
 
 ## Project Structure
 
@@ -89,6 +96,11 @@ api/
 
 ios/ or android/
 └── [platform-specific structure: feature modules, UI flows, platform tests]
+
+# Option 4: AndroidSDD (this repository)
+app/src/main/java/.../   # Clean Architecture packages: data/, domain/, ui/
+app/src/test/java/.../   # JVM unit tests (JUnit 5 + MockK)
+app/src/androidTest/java/.../ # Instrumentation/Compose UI tests
 ```
 
 **Structure Decision**: [Document the selected structure and reference the real
