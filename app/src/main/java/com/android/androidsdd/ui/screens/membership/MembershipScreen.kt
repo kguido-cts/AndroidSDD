@@ -24,7 +24,6 @@ import com.android.androidsdd.domain.model.membership.MembershipPlan
 import com.android.androidsdd.ui.TestTags
 import com.android.androidsdd.ui.screens.membership.sections.MembershipHeaderSection
 import com.android.androidsdd.ui.screens.membership.sections.MembershipPlanCard
-import com.android.androidsdd.ui.screens.membership.sections.MembershipSectionHeader
 
 /**
  * Membership screen composable.
@@ -86,6 +85,7 @@ fun MembershipScreen(
                     id = "classic_missing",
                     name = "Classic",
                     tagline = null,
+                    price = null,
                     benefits = emptyList(),
                     iconKey = null,
                 )
@@ -94,6 +94,7 @@ fun MembershipScreen(
                     id = "black_card_missing",
                     name = "Black Card",
                     tagline = null,
+                    price = null,
                     benefits = emptyList(),
                     iconKey = null,
                 )
@@ -106,23 +107,9 @@ fun MembershipScreen(
                         )
                     }
                     item {
-                        MembershipSectionHeader(
-                            title = classicSection?.title ?: "Classic",
-                            semanticsTag = TestTags.MEMBERSHIP_SECTION_HEADER_CLASSIC,
-                            modifier = Modifier.fillMaxWidth(),
-                        )
-                    }
-                    item {
                         MembershipPlanCard(
                             plan = classicPlan,
                             semanticsTag = TestTags.MEMBERSHIP_PLAN_CARD_CLASSIC,
-                            modifier = Modifier.fillMaxWidth(),
-                        )
-                    }
-                    item {
-                        MembershipSectionHeader(
-                            title = blackCardSection?.title ?: "Black Card",
-                            semanticsTag = TestTags.MEMBERSHIP_SECTION_HEADER_BLACK_CARD,
                             modifier = Modifier.fillMaxWidth(),
                         )
                     }

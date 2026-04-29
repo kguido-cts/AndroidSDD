@@ -27,6 +27,7 @@ data class MembershipPlanDto(
     val id: String,
     val name: String,
     val tagline: String? = null,
+    val price: String? = null,
     val iconKey: String? = null,
     val benefits: List<MembershipBenefitDto> = emptyList(),
 )

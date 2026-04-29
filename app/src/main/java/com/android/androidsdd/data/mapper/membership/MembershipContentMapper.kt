@@ -34,6 +34,7 @@ object MembershipContentMapper {
         id = id,
         name = name,
         tagline = tagline,
+        price = price,
         benefits = benefits.map { it.toDomain() },
         iconKey = iconKey,
     )

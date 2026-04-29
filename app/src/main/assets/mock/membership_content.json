@@ -12,12 +12,14 @@
           "id": "classic",
           "name": "Classic",
           "tagline": "Best for everyday gym-goers",
+          "price": "$29/mo",
           "iconKey": null,
           "benefits": [
-            { "id": "classic_b1", "text": "Unlimited gym access" },
-            { "id": "classic_b2", "text": "Access to your home club" },
-            { "id": "classic_b3", "text": "Free fitness orientation" },
-            { "id": "classic_b4", "text": "Locker room access" }
+            { "id": "classic_b1", "text": "Full gym access" },
+            { "id": "classic_b2", "text": "Locker rooms & Showers" },
+            { "id": "classic_b3", "text": "Fitness App" },
+            { "id": "classic_b4", "text": "Free Fitness Assessment" },
+            { "id": "classic_b5", "text": "No Long-Term Contract" }
           ]
         }
       ]
@@ -29,13 +31,16 @@
         {
           "id": "black_card",
           "name": "Black Card",
-          "tagline": "Best for committed athletes",
+          "tagline": "Best for committed athletes & wellness enthusiasts",
+          "price": "$59/mo",
           "iconKey": null,
           "benefits": [
-            { "id": "black_b1", "text": "All-club access" },
-            { "id": "black_b2", "text": "Guest privileges" },
-            { "id": "black_b3", "text": "Premium amenities & tanning" },
-            { "id": "black_b4", "text": "Priority member support" }
+            { "id": "black_b1", "text": "All-Club Access" },
+            { "id": "black_b2", "text": "24/7 Unlimited Access" },
+            { "id": "black_b3", "text": "Spa & Massage Credits" },
+            { "id": "black_b4", "text": "Guest Privileges" },
+            { "id": "black_b5", "text": "Nutrition Coaching" },
+            { "id": "black_b6", "text": "Priority Class Booking" }
           ]
         }
       ]

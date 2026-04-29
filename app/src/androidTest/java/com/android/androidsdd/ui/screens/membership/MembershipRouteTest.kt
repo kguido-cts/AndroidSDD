@@ -43,10 +43,9 @@ class MembershipRouteTest {
         composeRule.onNodeWithTag(TestTags.TAB_MEMBERSHIP).performClick()
 
         composeRule.onNodeWithTag(TestTags.MEMBERSHIP_HEADER_SECTION).assertIsDisplayed()
-        composeRule.onNodeWithTag(TestTags.MEMBERSHIP_SECTION_HEADER_CLASSIC).assertIsDisplayed()
+        composeRule.onNodeWithTag(TestTags.MEMBERSHIP_PLAN_CARD_CLASSIC).assertIsDisplayed()
 
         composeRule.onNodeWithTag(TestTags.MEMBERSHIP_PLAN_CARD_BLACK_CARD).performScrollTo()
-        composeRule.onNodeWithTag(TestTags.MEMBERSHIP_SECTION_HEADER_BLACK_CARD).assertIsDisplayed()
         composeRule.onNodeWithTag(TestTags.MEMBERSHIP_PLAN_CARD_BLACK_CARD).assertIsDisplayed()
     }
 
@@ -73,14 +72,14 @@ class MembershipRouteTest {
         composeRule.onNodeWithTag(TestTags.TAB_MEMBERSHIP).performClick()
 
         // Classic benefits
-        composeRule.onNodeWithText("Unlimited gym access").assertIsDisplayed()
-        composeRule.onNodeWithText("Access to your home club").assertIsDisplayed()
-        composeRule.onNodeWithText("Free fitness orientation").assertIsDisplayed()
+        composeRule.onNodeWithText("Full gym access").assertIsDisplayed()
+        composeRule.onNodeWithText("Locker rooms & Showers").assertIsDisplayed()
+        composeRule.onNodeWithText("Fitness App").assertIsDisplayed()
 
         // Black card benefits (may require scrolling)
-        composeRule.onNodeWithText("All-club access").performScrollTo().assertIsDisplayed()
-        composeRule.onNodeWithText("Guest privileges").assertIsDisplayed()
-        composeRule.onNodeWithText("Premium amenities & tanning").assertIsDisplayed()
+        composeRule.onNodeWithText("All-Club Access").performScrollTo().assertIsDisplayed()
+        composeRule.onNodeWithText("24/7 Unlimited Access").assertIsDisplayed()
+        composeRule.onNodeWithText("Spa & Massage Credits").assertIsDisplayed()
     }
 
     @Test
@@ -108,11 +107,12 @@ private fun defaultContent(): MembershipContent = MembershipContent(
                     id = "classic",
                     name = "Classic",
                     tagline = "Best for everyday gym-goers",
+                    price = "$29/mo",
                     iconKey = null,
                     benefits = listOf(
-                        MembershipBenefit("classic_b1", "Unlimited gym access"),
-                        MembershipBenefit("classic_b2", "Access to your home club"),
-                        MembershipBenefit("classic_b3", "Free fitness orientation"),
+                        MembershipBenefit("classic_b1", "Full gym access"),
+                        MembershipBenefit("classic_b2", "Locker rooms & Showers"),
+                        MembershipBenefit("classic_b3", "Fitness App"),
                     ),
                 ),
             ),
@@ -124,12 +124,13 @@ private fun defaultContent(): MembershipContent = MembershipContent(
                 MembershipPlan(
                     id = "black_card",
                     name = "Black Card",
-                    tagline = "Best for committed athletes",
+                    tagline = "Best for committed athletes & wellness enthusiasts",
+                    price = "$59/mo",
                     iconKey = null,
                     benefits = listOf(
-                        MembershipBenefit("black_b1", "All-club access"),
-                        MembershipBenefit("black_b2", "Guest privileges"),
-                        MembershipBenefit("black_b3", "Premium amenities & tanning"),
+                        MembershipBenefit("black_b1", "All-Club Access"),
+                        MembershipBenefit("black_b2", "24/7 Unlimited Access"),
+                        MembershipBenefit("black_b3", "Spa & Massage Credits"),
                     ),
                 ),
             ),

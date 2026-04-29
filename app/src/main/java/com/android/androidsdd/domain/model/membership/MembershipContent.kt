@@ -29,6 +29,7 @@ data class MembershipPlan(
     val id: String,
     val name: String,
     val tagline: String?,
+    val price: String? = null,
     val benefits: List<MembershipBenefit>,
     /**
      * Optional key that can map to a plan icon in the future.
